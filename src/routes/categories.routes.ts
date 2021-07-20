@@ -1,18 +1,14 @@
 import { Router } from "express";
 
+import { createCategoryController } from "../modules/cars/useCases/createCategory";
+import { listCategoriesController } from "../modules/cars/useCases/listCategories";
+
 export const categoriesRoutes = Router();
 
-const categories = [];
+categoriesRoutes.post("/", (req, res) => {
+  return createCategoryController.handle(req, res);
+});
 
-categoriesRoutes.post("/categories", (req, res) => {
-  const { name, description } = req.body;
-
-  console.log("AAa");
-
-  categories.push({
-    name,
-    description,
-  });
-
-  res.status(201).send();
+categoriesRoutes.get("/", (req, res) => {
+  return listCategoriesController.handle(req, res);
 });
