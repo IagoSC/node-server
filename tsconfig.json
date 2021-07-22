@@ -6,6 +6,7 @@
       "allowJs": true,
       "outDir": "./dist",
       "skipLibCheck": true,
+      "resolveJsonModule": true,
       "forceConsistentCasingInFileNames": true,
   },
   "include": [

@@ -12,7 +12,7 @@ export class CreateCategoryUseCase {
     const existingCategory = this.categoriesRepository.getByName(name);
 
     if (existingCategory) throw new Error("Category already exists");
-
+    if (!name || !description) throw new Error("Invalid Data");
     this.categoriesRepository.create({ name, description });
   }
 }

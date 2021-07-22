@@ -7,6 +7,6 @@ export class ListCategoriesController {
 
   handle(req: Request, res: Response): Response {
     const categories = this.listCategoriesUseCase.execute();
-    return res.status(201).send(categories);
+    return res.status(200).send(categories);
   }
 }

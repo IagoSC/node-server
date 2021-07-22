@@ -11,7 +11,9 @@ export class CreateSpecificationUseCase {
   execute({ description, name }: ICreateSpecificationUseCase): void {
     const existingSpecification = this.specificationRepository.getByName(name);
 
+    if (!name || !description) throw new Error("Invalid Data");
     if (existingSpecification) throw new Error("Specification already exists");
-    else this.specificationRepository.create({ name, description });
+
+    this.specificationRepository.create({ name, description });
   }
 }
