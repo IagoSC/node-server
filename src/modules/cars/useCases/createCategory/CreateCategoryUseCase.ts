@@ -8,11 +8,13 @@ interface ICreateCategoryUseCase {
 export class CreateCategoryUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {}
 
-  execute({ description, name }: ICreateCategoryUseCase): void {
-    const existingCategory = this.categoriesRepository.getByName(name);
+  async execute({ description, name }: ICreateCategoryUseCase): Promise<void> {
+    const existingCategory = await this.categoriesRepository.getByName(name);
+
+    console.log("exists??", existingCategory);
 
     if (existingCategory) throw new Error("Category already exists");
     if (!name || !description) throw new Error("Invalid Data");
-    this.categoriesRepository.create({ name, description });
+    await this.categoriesRepository.create({ name, description });
   }
 }
