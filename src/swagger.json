@@ -70,6 +70,69 @@
           "500": {"description":"Internal error"}
         }
       }
+    },
+    "/categories/import": {
+      "post": {
+        "tags": ["Category"],
+        "description": "Import csv file with categories",
+        "summary": "Create categories",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description":"Created"
+          }
+        }
+      }
+    },
+    "/specifications": {
+      "post": {
+        "tags": ["Specifications"],
+        "description": "Create new Specification",
+        "requestBody": {
+          "content": { 
+            "application/json": {
+              "schema":{
+                "$ref": "#/definitions/Specification"
+              }
+            }
+          }
+        },
+        "responses":{
+          "201":{
+            "description":"Created"
+          },
+          "500":{
+            "description": "Specification already exists"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Specifications": {
+      "type": "object",
+      "properties": {
+        "name":{
+          "type":"string"
+        },
+        "description": {
+          "type":"string"
+        }
+      }
     }
   }
 }
