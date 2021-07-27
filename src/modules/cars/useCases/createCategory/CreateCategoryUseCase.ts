@@ -19,6 +19,6 @@ export class CreateCategoryUseCase {
 
     if (existingCategory) throw new Error("Category already exists");
     if (!name || !description) throw new Error("Invalid Data");
-    await this.categoriesRepository.create({ name, description });
+    this.categoriesRepository.create({ name, description });
   }
 }
