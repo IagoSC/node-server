@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
+import { AppError } from "../../../../errors/AppError";
 import { ISpecificationsRepository } from "../../repositories/ISpecificationsRepository";
 
 interface ICreateSpecificationUseCase {
@@ -22,8 +23,9 @@ class CreateSpecificationUseCase {
       name
     );
 
-    if (!name || !description) throw new Error("Invalid Data");
-    if (existingSpecification) throw new Error("Specification already exists");
+    if (!name || !description) throw new AppError("Missing Data");
+    if (existingSpecification)
+      throw new AppError("Specification already exists", 409);
 
     this.specificationsRepository.create({ name, description });
   }

@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
+import { AppError } from "../../../../errors/AppError";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 interface ICreateCategoryUseCase {
@@ -17,8 +18,8 @@ export class CreateCategoryUseCase {
   async execute({ description, name }: ICreateCategoryUseCase): Promise<void> {
     const existingCategory = await this.categoriesRepository.getByName(name);
 
-    if (existingCategory) throw new Error("Category already exists");
-    if (!name || !description) throw new Error("Invalid Data");
+    if (existingCategory) throw new AppError("Category already exists", 409);
+    if (!name || !description) throw new AppError("Missing Data");
     this.categoriesRepository.create({ name, description });
   }
 }
