@@ -12,7 +12,7 @@ const ensureAuthenticated = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) throw new AppError("Token missing", 401);
@@ -30,6 +30,8 @@ const ensureAuthenticated = async (
     const user = await usersRepository.getById(user_id);
 
     if (!user) throw new AppError("User don't exists", 401);
+
+    req.user = { id: user_id };
 
     next();
   } catch (error) {
